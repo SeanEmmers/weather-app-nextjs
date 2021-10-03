@@ -1,5 +1,6 @@
 import React from 'react'
 import cities from '../../lib/city.list.json';
+import Head from 'next/head';
 
 export async function getServerSideProps(context) {
   const city = getCity(context.params.city);
@@ -73,7 +74,9 @@ export default function City({
 
   return (
     <div>
-      <h1>City Page</h1>
+      <Head>
+        <title>{city.name} Weather </title>
+      </Head>
     </div>
   );
 }
