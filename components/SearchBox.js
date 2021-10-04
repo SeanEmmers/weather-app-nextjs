@@ -1,10 +1,22 @@
 import React from 'react';
 import cities from '../lib/city.list.json';
 import Link from 'next/link';
+import Router from 'next/router';
 
 export default function SearchBox( {placeholder} ) {
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState([]);
+
+  // Clears the query from the search bar after reload
+  React.useEffect(() => {
+    const clearQuery = () => setQuery("");
+
+    Router.events.on("routeChangeComplete", clearQuery)
+
+    return () => {
+      Router.events.off("routeChangeComplete", clearQuery)
+    };
+  }, []);
 
   const onChange = (e) => {
     const { value } = e.target;
