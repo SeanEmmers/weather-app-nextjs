@@ -4,6 +4,7 @@ import Head from 'next/head';
 import TodaysWeather from '../../components/TodaysWeather';
 import moment from 'moment-timezone';
 import HourlyWeather from '../../components/HourlyWeather';
+import WeeklyWeather from '../../components/WeeklyWeather';
 
 
 // this function gets the city name from the params
@@ -95,6 +96,10 @@ export default function City({
           />
           <HourlyWeather 
             hourlyWeather={hourlyWeather} 
+            timezone={timezone}
+          />
+          <WeeklyWeather
+            weeklyWeather={dailyWeather}
             timezone={timezone}
           />
         </div>
