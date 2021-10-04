@@ -2,6 +2,8 @@ import React from 'react'
 import cities from '../../lib/city.list.json';
 import Head from 'next/head';
 import TodaysWeather from '../../components/TodaysWeather';
+import moment from 'moment-timezone';
+import HourlyWeather from '../../components/HourlyWeather';
 
 
 // this function gets the city name from the params
@@ -31,9 +33,10 @@ export async function getServerSideProps(context) {
   return {
     props: {
       city: city,
+      timezone: data.timezone,
       currentWeather: data.current,
       dailyWeather: data.daily,
-      hourlyWeather: getHourlyWeather(data.hourly),
+      hourlyWeather: getHourlyWeather(data.hourly, data.timezone),
     },
   };
 }
@@ -60,20 +63,14 @@ const getCity = param => {
 };
 
 // helper function to change api data for use
-const getHourlyWeather = (hourlyData) => {
-  const current = new Date();
-  current.setHours(current.getHours(), 0, 0, 0);
-  const tomorrow = new Date(current);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0,0,0,0);
+const getHourlyWeather = (hourlyData, timezone) => {
+  // use moment to get the end of day with corrent time zone
+  const endOfDay = moment().tz(timezone).endOf('day').valueOf();
+  const eodTimeStamp = Math.floor(endOfDay / 1000);
 
-  // divide by 1000 to get timestamps in seconds
-  const currentTimeStamp = Math.floor(current.getTime() / 1000);
-  const tomorrowTimeStamp = Math.floor(tomorrow.getTime() / 1000);
+  const todaysData = hourlyData.filter(data => data.dt < eodTimeStamp);
 
-  const todaysData = hourlyData.filter(data => data.dt < tomorrowTimeStamp);
-
-  return todaysData
+  return todaysData;
 }
 
 
@@ -81,14 +78,27 @@ export default function City({
   hourlyWeather, 
   city, 
   currentWeather, 
-  dailyWeather, 
+  dailyWeather,
+  timezone, 
 }) {
   return (
     <div>
       <Head>
         <title>{city.name} Weather</title>
       </Head>
-      <TodaysWeather city={city} weather={dailyWeather[0]}/>
+      <div className="page-wrapper">
+        <div className="container">
+          <TodaysWeather 
+            city={city} 
+            weather={dailyWeather[0]} 
+            timezone={timezone}
+          />
+          <HourlyWeather 
+            hourlyWeather={hourlyWeather} 
+            timezone={timezone}
+          />
+        </div>
+      </div>
     </div>
   )
 }
