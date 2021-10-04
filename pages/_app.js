@@ -8,14 +8,14 @@ function MyApp({ Component, pageProps }) {
     const start = () => NProgress.start();
     const end = () => NProgress.done();
 
-    Router.events.on("routChangeStart", start);
-    Router.events.on("routChangeComplete", end);
-    Router.events.on("routChangeError", end);
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
 
     return () => {
-      Router.events.off("routChangeStart", start);
-      Router.events.off("routChangeComplete", end);
-      Router.events.off("routChangeError", end);
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
     }
 
   }, [])

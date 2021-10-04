@@ -57,7 +57,7 @@ export default function SearchBox( {placeholder} ) {
                 <Link href={`/location/${city.slug}`}>
                   <a>
                     {city.name}
-                    {city.state ? `, ${city.state}` : " "}
+                    {city.state ? `, ${city.state}` : ""}{" "}
                     <span>({city.country})</span>
                   </a>
                 </Link>
