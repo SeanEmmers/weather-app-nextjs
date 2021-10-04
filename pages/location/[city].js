@@ -5,6 +5,7 @@ import TodaysWeather from '../../components/TodaysWeather';
 import moment from 'moment-timezone';
 import HourlyWeather from '../../components/HourlyWeather';
 import WeeklyWeather from '../../components/WeeklyWeather';
+import SearchBox from '../../components/SearchBox';
 
 
 // this function gets the city name from the params
@@ -89,6 +90,7 @@ export default function City({
       </Head>
       <div className="page-wrapper">
         <div className="container">
+          <SearchBox placeholder="Search for another location..."/>
           <TodaysWeather 
             city={city} 
             weather={dailyWeather[0]} 
