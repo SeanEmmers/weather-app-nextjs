@@ -8,4 +8,6 @@ This project was created following a guide to begin learning Next.js.
 - npm install
 - npm run dev
 
-<!-- [Check it out here](https://weather-app-nextjs-lime.vercel.app/) -->
+OR 
+
+[Check it out here](https://weather-app-nextjs-lime.vercel.app/)
