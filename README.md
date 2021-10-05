@@ -2,4 +2,10 @@
 
 This project was created following a guide to begin learning Next.js.
 
-[Check it out here](https://weather-app-nextjs-lime.vercel.app/)
+## How to run
+
+- Git clone the repo
+- npm install
+- npm run dev
+
+<!-- [Check it out here](https://weather-app-nextjs-lime.vercel.app/) -->
